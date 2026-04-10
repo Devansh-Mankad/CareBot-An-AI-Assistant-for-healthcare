@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request, jsonify
-from brain import get_carebot_response # Uses your existing Gemini 2.5 logic
+from brain import get_carebot_response
 from dotenv import load_dotenv
 
 # 1. Initialize Environment
