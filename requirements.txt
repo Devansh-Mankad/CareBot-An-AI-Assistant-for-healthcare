@@ -1,0 +1,6 @@
+streamlit
+google-generativeai
+flask
+python-dotenv
+requests
+gunicorn
