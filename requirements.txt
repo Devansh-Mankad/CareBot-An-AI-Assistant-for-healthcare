@@ -4,3 +4,5 @@ flask
 python-dotenv
 requests
 gunicorn
+SpeechRecognition
+pyttsx3
