@@ -10,7 +10,6 @@ from google.genai import types
 load_dotenv()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-# 2. AUDIO SAFETY (Prevents Render from crashing)
 try:
     engine = pyttsx3.init()
     engine.setProperty('rate', 160)
@@ -54,6 +53,12 @@ DIAGNOSTIC PROTOCOL:
 2. If the user mentions a health symptom, you MUST ask 3-4 specific follow-up questions (duration, severity, location, etc.).
 3. Suggest 3 possible conditions ONLY after enough detail is provided, always adding a medical disclaimer.
 4. Keep language simple for rural users.
+5. LANGUAGE RULE (STRICT):
+You MUST respond in the same language as the user's input.
+DO NOT default to English unless the user uses English.
+DO NOT say "I can only respond in English".
+If the user uses Hindi, Gujarati, or any regional language, respond in that language.
+If multiple languages are used, respond in the dominant or simplest language.
 """
 
 # 4. CORE AI LOGIC (With 2.5 Model Strings & Fast Retry)
@@ -99,7 +104,7 @@ def summarize_symptoms(chat_history):
     
     try:
         response = client.models.generate_content(
-            model="gemini-2.5-flash", 
+            model="gemini-2.5-flash-lite", 
             contents=prompt
         )
         return response.text
